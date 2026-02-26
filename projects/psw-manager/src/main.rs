@@ -1,28 +1,26 @@
 use std::io::{self, Write};
 
-fn menu_semplice() -> usize {
+fn entry_menu() -> usize {
 	println!("\n🔐 Cosa vuoi fare?");
 	println!("1. Aggiungi password");
 	println!("2. Visualizza password");
 	println!("3. Lista passwords");
 	println!("4. Elimina password");
 	println!("5. Esci");
-    
 	print!("\nScegli un'opzione (1-5): ");
-	io::stdout().flush().unwrap(); // Forza la stampa immediata
+	io::stdout().flush().unwrap();
 	
 	let mut input = String::new();
 	io::stdin().read_line(&mut input).unwrap();
 	
-	// Parse dell'input
 	input.trim().parse().unwrap_or(0)
 }
-
+	
 fn main() {
 	loop {
-		let scelta = menu_semplice();
+		let selection = entry_menu();
 		
-		match scelta {
+		match selection {
 			1 => {
 				println!("Aggiungi password");
 				break;
