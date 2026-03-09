@@ -1,4 +1,6 @@
 use std::io::{self, Write};
+mod models;
+mod commands;
 
 fn entry_menu() -> usize {
 	println!("\n🔐 Cosa vuoi fare?");
@@ -23,7 +25,8 @@ fn main() {
 		match selection {
 			1 => {
 				println!("Aggiungi password");
-				break;
+				commands::add::execute();
+				pause();
 			}
 			2 => {
 				println!("Visualizza password");
@@ -44,4 +47,11 @@ fn main() {
 			_ => println!("Opzione non valida!"),
 		}
 	}
+}
+
+fn pause() {
+	print!("\nPremi INVIO per continuare...");
+	io::stdout().flush().unwrap();
+	let mut _input = String::new();
+	io::stdin().read_line(&mut _input).unwrap();
 }
