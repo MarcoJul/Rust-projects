@@ -1,6 +1,5 @@
 [workspace]
 members = [
-	"projects/psw-manager",
 	"projects/sing2midi",
 ]
 resolver = "2"
