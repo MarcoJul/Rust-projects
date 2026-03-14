@@ -1,26 +1,20 @@
 use std::io::{self, Write};
 use crate::models::PasswordEntry;
 
+fn prompt(label: &str) -> String {
+	print!("{}", label);
+	io::stdout().flush().unwrap();
+	let mut input = String::new();
+	io::stdin().read_line(&mut input).unwrap();
+	input.trim().to_string()
+}
+
 pub fn execute() {
 	println!("\n Aggiungi nuova password\n");
 
-	print!("Nome servizio (es. Gmail): ");
-	io::stdout().flush().unwrap();
-	let mut name = String::new();
-	io::stdin().read_line(&mut name).unwrap();
-	let name = name.trim().to_string();
-
-	print!("Username/Email: ");
-	io::stdout().flush().unwrap();
-	let mut username = String::new();
-	io::stdin().read_line(&mut username).unwrap();
-	let username = username.trim().to_string();
-
-	print!("Password: ");
-	io::stdout().flush().unwrap();
-	let mut password = String::new();
-	io::stdin().read_line(&mut password).unwrap();
-	let password = password.trim().to_string();
+	let name = prompt("Nome servizio (es. Gmail): ");
+	let username = prompt("Username/Email: ");
+	let password = prompt("Password: ");
 
 	let entry = PasswordEntry::new(name, username, password);
 
