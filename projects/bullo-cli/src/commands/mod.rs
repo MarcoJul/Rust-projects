@@ -22,6 +22,7 @@
 
 // Sotto-moduli (uno per comando)
 pub mod list;
+pub mod tree;
 
 // Qui in futuro aggiungeremo:
 // pub mod copy;

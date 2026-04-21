@@ -64,9 +64,13 @@ fn run() -> error::Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Ls { path } => {
-            commands::list::execute(path)?;
-            //                          ^ propaga eventuali errori a run()
+        Commands::Ls {
+            path,
+            long,
+            sort,
+            reverse,
+        } => {
+            commands::list::execute(path, long, sort, reverse)?;
         }
         Commands::Cp {
             source: _source,
@@ -86,8 +90,8 @@ fn run() -> error::Result<()> {
         Commands::Mkdir { path: _path } => {
             println!("TODO: implementare mkdir");
         }
-        Commands::Preview { path: _path } => {
-            println!("TODO: implementare preview");
+        Commands::Tree { path, depth } => {
+            commands::tree::execute(path, depth)?;
         }
         Commands::Open {
             path: _path,
