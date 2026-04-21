@@ -25,7 +25,9 @@
 //
 // =============================================================================
 
-use clap::{Parser, Subcommand};
+use std::path::PathBuf;
+
+use clap::{Parser, Subcommand, ValueEnum};
 
 /// Bullo CLI - Un file manager da terminale scritto in Rust
 #[derive(Parser, Debug)]
@@ -37,6 +39,17 @@ pub struct Cli {
     pub command: Commands,
 }
 
+/// Criterio di ordinamento per `ls`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
+pub enum SortBy {
+    /// Ordina per nome
+    Name,
+    /// Ordina per dimensione
+    Size,
+    /// Ordina per data di modifica
+    Date,
+}
+
 /// Tutti i comandi disponibili in Bullo CLI.
 ///
 /// Ogni variante dell'enum corrisponde a un sotto-comando.
@@ -46,7 +59,19 @@ pub enum Commands {
     /// Lista file e directory
     Ls {
         /// Path da listare (default: directory corrente)
-        path: Option<String>,
+        path: Option<PathBuf>,
+
+        /// Output dettagliato con permessi, owner, dimensione
+        #[arg(long)]
+        long: bool,
+
+        /// Criterio di ordinamento (default: name)
+        #[arg(long, default_value = "name")]
+        sort: SortBy,
+
+        /// Ordine inverso
+        #[arg(long)]
+        reverse: bool,
     },
 
     /// Copia file o directory
@@ -77,10 +102,14 @@ pub enum Commands {
         path: String,
     },
 
-    /// Mostra anteprima di un file
-    Preview {
-        /// File da visualizzare
-        path: String,
+    /// Mostra albero ricorsivo di directory
+    Tree {
+        /// Directory da visualizzare (default: directory corrente)
+        path: Option<PathBuf>,
+
+        /// Profondita` massima da visualizzare
+        #[arg(long)]
+        depth: Option<u32>,
     },
 
     /// Apri un file con il programma di default o specificato
