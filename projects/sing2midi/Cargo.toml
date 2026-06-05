@@ -3,5 +3,8 @@ name = "sing2midi"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+
 [dependencies]
 cpal = "0.15"
+ctrlc = "3"
